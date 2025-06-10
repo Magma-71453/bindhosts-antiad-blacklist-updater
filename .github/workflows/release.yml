@@ -1,0 +1,36 @@
+name: Move, Rename, Zip and Pre-Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Directory
+        run: |
+          
+          # 移动 standalone/* 到 make 下
+          mv standalone/* make/
+          # 如果目标脚本存在则重命名
+          if [ -f make/bindhosts-antiad-blacklist-updater.sh ]; then
+            mv make/bindhosts-antiad-blacklist-updater.sh make/service.sh
+          fi
+
+      - name: Compress make directory to zip
+        run: |
+          time_date=$(date "+%Y/%m/%d %H:%M")
+          zip -r $time_date.zip make
+
+      - name: Create Pre-release and Upload Artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pre-release-${{ github.run_number }}
+          name: 自动预发布 ${{ github.run_number }}
+          prerelease: true
+          文件: $time_date.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
