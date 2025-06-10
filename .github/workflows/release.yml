@@ -38,7 +38,7 @@ jobs:
         shell: bash
 
       - name: Create GitHub Pre-release and upload work.zip
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: pre-release-${{ github.run_number }}
           name: 自动预发布 ${{ github.run_number }}
