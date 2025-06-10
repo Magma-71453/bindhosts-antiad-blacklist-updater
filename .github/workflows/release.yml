@@ -10,15 +10,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare Directory
-        run: |
-          
+    #  - name: Prepare Directory
+    #    run: |
+          #standalone已停用，请直接把make作为主目录
           # 移动 standalone/* 到 make 下
-          mv standalone/* make/
+         # mv standalone/* make/
           # 如果目标脚本存在则重命名
-          if [ -f make/bindhosts-antiad-blacklist-updater.sh ]; then
-            mv make/bindhosts-antiad-blacklist-updater.sh make/service.sh
-          fi
+        #  if [ -f make/bindhosts-antiad-blacklist-updater.sh ]; then
+        #    mv make/bindhosts-antiad-blacklist-updater.sh make/service.sh
+       #   fi
 
       - name: Compress make directory to zip
         run: |
@@ -31,6 +31,6 @@ jobs:
           tag_name: pre-release-${{ github.run_number }}
           name: 自动预发布 ${{ github.run_number }}
           prerelease: true
-          files: $time_date.zip
+          files: $(ls .zip)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
