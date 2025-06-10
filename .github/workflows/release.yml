@@ -15,13 +15,28 @@ jobs:
 
       - name: Compress make directory to work.zip
         run: |
-          cd make
-          zip -r ../work.zip .
+          echo "当前工作目录: $(pwd)"
+          # 检查 make 目录是否存在
+          if [ ! -d "make" ]; then
+            echo "make 目录不存在！"
+            exit 1
+          fi
+          cd make || (echo "切换到 make 目录失败！" && exit 1)
+          echo "当前 make 目录: $(pwd)"
+          # 检查 make 目录下是否有文件
+          ls -lh || (echo "make 目录为空！" && exit 1)
+          # 压缩所有内容，并放到上级目录中，生成 work.zip
+          zip -r ../work.zip . || (echo "压缩失败！" && exit 1)
           cd ..
+          echo "压缩完成，work.zip 位置: $(pwd)/work.zip"
+        shell: bash
+
       - name: Check work.zip
         run: |
           ls -lh work.zip || (echo "work.zip 未找到！" && exit 1)
           file work.zip
+        shell: bash
+
       - name: Create GitHub Pre-release and upload work.zip
         uses: softprops/action-gh-release@v2
         with:
