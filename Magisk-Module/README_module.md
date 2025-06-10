@@ -1,0 +1,1 @@
+通过magisk安装模块后使用action.sh执行
