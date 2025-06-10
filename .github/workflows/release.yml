@@ -22,7 +22,7 @@ jobs:
 
       - name: Compress make directory to zip
         run: |
-          time_date=$(date "+%Y/%m/%d %H:%M")
+          time_date=$(date "+%Y-%m-%d %H:%M")
           zip -r $time_date.zip make
 
       - name: Create Pre-release and Upload Artifact
