@@ -20,8 +20,8 @@ jobs:
           cd ..
       - name: Check work.zip
         run: |
-        ls -lh work.zip || (echo "work.zip 未找到！" && exit 1)
-    file work.zip
+          ls -lh work.zip || (echo "work.zip 未找到！" && exit 1)
+          file work.zip
       - name: Create GitHub Pre-release and upload work.zip
         uses: softprops/action-gh-release@v2
         with:
