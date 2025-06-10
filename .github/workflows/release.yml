@@ -22,8 +22,8 @@ jobs:
 
       - name: Compress make directory to zip
         run: |
-          time_date=$(date "+%Y-%m-%d %H:%M")
-          zip -r $time_date.zip make
+         # time_date=$(date "+%Y-%m-%d %H:%M")
+          zip -r workfollow.zip make
 
       - name: Create Pre-release and Upload Artifact
         uses: softprops/action-gh-release@v2
@@ -31,6 +31,6 @@ jobs:
           tag_name: pre-release-${{ github.run_number }}
           name: 自动预发布 ${{ github.run_number }}
           prerelease: true
-          files: $(ls .zip)
+          files: workfollow.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
