@@ -1,0 +1,2 @@
+# bindhosts-antiad-blacklist-updater
+为 Magisk 模块 bindhosts 提供一键更新 anti-ad 黑名单格式的自动化脚本，实现非标准 hosts 规则的便捷订阅。
