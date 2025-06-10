@@ -25,8 +25,8 @@ bindhosts 是一款基于 Magisk 的广告过滤模块，允许用户通过 host
 ## 脚本使用方法
 
 1. **前提条件**
-    - 已安装 Magisk 并刷入 bindhosts 模块
-    - 设备已 root 且具备 shell 或 Termux 运行环境
+    - 已刷入 bindhosts 模块
+    - 设备已 root 且具备 shell 
     - 建议提前备份 `/data/adb/bindhosts/blacklist.txt`
 
 2. **部署脚本**
