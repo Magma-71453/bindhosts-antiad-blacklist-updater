@@ -30,4 +30,4 @@ jobs:
           prerelease: true
           files: work.zip
         env:
-          GITHUB_TOKEN: ${{ GH_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
