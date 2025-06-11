@@ -1,6 +1,6 @@
 id=blacklist-updater
 name=blacklist-updater
-version=v0.0.1
-versionCode=1
+version=v0.1.1
+versionCode=11
 author=magma
 description=为 Magisk 模块 bindhosts 提供一键更新 anti-ad 黑名单格式的自动化脚本，实现非标准 hosts 规则的便捷订阅。
