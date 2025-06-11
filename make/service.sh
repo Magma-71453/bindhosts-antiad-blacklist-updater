@@ -22,6 +22,9 @@ check_if (){
     cd $script_dir
     echo "当前目录 $script_dir"
 }    
+
+echo "--------------------------------------------------------"
+
 #初始化变量
 #👇模块目录，用于检测模块启用状态
 MODDIR="/data/adb/modules/bindhosts"
@@ -29,12 +32,13 @@ MODDIR="/data/adb/modules/bindhosts"
 home="/data/adb/bindhosts"
 #👇订阅更新到哪个文件，目前模块只写了更新blacklist.txt
 list="blacklist.txt"
-#综合以上原始变量，模块将：检测/data/adb/modules/bindhosts路径下是否存在disable和remove文件来动态运行或退出，然后再：把订阅更新至/data/adb/bindhosts/blacklist.txt
+#👇订阅地址
+update_ttp="https://anti-ad.net/domains.txt"
+#综合以上原始变量，模块将：检测/data/adb/modules/bindhosts路径下是否存在disable和remove文件来动态运行或退出，然后再：读取订阅地址后更新至/data/adb/bindhosts/blacklist.txt
 script_dir=$(dirname "$(realpath "$0")")
 echo "脚本目录：$script_dir"
 alias curl='$script_dir/curl'
 alias rename='$script_dir/rename'
-echo "--------------------------------------------------------"
 
 echo "【1】检测网络连接..."
 ping -c 1 anti-ad.net >/dev/null
@@ -49,20 +53,20 @@ check_if
 
 if grep active $MODDIR/module.prop >/dev/null; then
     echo "✔ hosts 已挂载，开始更新订阅并重载 hosts"
-    echo "【3】正在更新..."
-    curl -# -o $home/$list.new https://anti-ad.net/domains.txt
-    if [ $? -eq 0 ]; then
-        echo "✔ 订阅下载完成"
-        sleep 1
-        echo "【5】应用新规则..."
-        rename -v '.new' '' $home/$list.new
+    echo "【2】正在更新..."
+    curl -# -o $home/$list.new $update_ttp
+        if [ $? -eq 0 ]; then
+            echo "✔ 订阅下载完成"
+            sleep 1
+            echo "【3】应用新规则..."
+            rename -v '.new' '' $home/$list.new
         #echo "✔ 规则已替换> $home/$list"
-    else
-        echo "✘ 下载失败，请检查网络或目标链接"
-        echo "✘ 文件完整性未知，脚本退出"
-        until_10
-    fi
-    echo "【6】重载模块..."
+        else
+            echo "✘ 下载失败，请检查网络或目标链接"
+            echo "✘ 文件完整性未知，脚本退出"
+            until_10
+        fi
+    echo "【4】重载模块..."
     #直接调用home/action，避免版本差异带来的未知问题
     sh $MODDIR/action.sh >/dev/null
     sleep 2
