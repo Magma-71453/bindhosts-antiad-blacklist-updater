@@ -29,19 +29,14 @@ bindhosts 是一款基于 Magisk 的广告过滤模块，允许用户通过 host
     - 设备已 root 且具备 shell 
     - 建议提前备份 `/data/adb/bindhosts/blacklist.txt`
 
-2. **部署脚本**
-    - 将本脚本复制到 `/data/adb/` 等可执行目录
-    - 赋予可执行权限：
-      ```sh
-      chmod +x bindhosts-antiad-blacklist-updater.sh
-      ```
+2. **安装模块**
+    - 将本模块通过Magisk/Apatch/KernelSu等任意方式安装到手机
+    - 重启
 
 3. **运行脚本**
-    - 在终端执行：
-      ```sh
-      sh bindhosts-antiad-blacklist-updater.sh
-      ```
-    - 脚本会自动完成 anti-ad 黑名单的下载、替换和重载
+    - 在管理器中执行action，直到脚本提示完成
+      
+    - 脚本会自动完成 anti-ad 订阅的下载、替换和重载
 
 4. **自定义订阅源**
     - 若需更换为其他规则源，只需修改脚本中的 `curl` 目标链接即可
@@ -66,9 +61,6 @@ list="blacklist.txt"
 综合以上原始变量，模块将：检测/data/adb/modules/bindhosts路径下是否存在disable和remove文件来动态运行或退出，然后再：把订阅更新至/data/adb/bindhosts/blacklist.txt
 你可以结合实际使用的模块的部分差异进行修改
 
-- **Q: Apatch、KernelSu可以用吗？**  
-  **A:** 理论上都可以的
-  
 - **Q: 如何恢复默认规则？**  
   **A:** 备份原始 `blacklist.txt`，如遇异常直接恢复即可。
 
