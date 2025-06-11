@@ -4,8 +4,8 @@ POSTFSDATA=false
 PROPFILE=false
 on_install() {
  unzip -o "$ZIPFILE" 'action.sh' -d $MODPATH >&2
- unzip -o "$ZIPFILE" 'curl' -d $MODPATH >&2
- unzip -o "$ZIPFILE" 'rename' -d $MODPATH >&2
+ unzip -o "$ZIPFILE" 'curl-arm64' -d $MODPATH >&2
+# unzip -o "$ZIPFILE" 'rename' -d $MODPATH >&2
  unzip -o "$ZIPFILE" 'service.sh' -d $MODPATH >&2
 }
 set_permissions() {
