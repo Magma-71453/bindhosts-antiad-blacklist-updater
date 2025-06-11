@@ -38,7 +38,8 @@ update_ttp="https://anti-ad.net/domains.txt"
 script_dir=$(dirname "$(realpath "$0")")
 echo "脚本目录：$script_dir"
 alias curl='$script_dir/curl-arm64'
-alias rename='$script_dir/rename'
+#curl --version | grep -E "c-ares|Resolver"
+#alias rename='$script_dir/rename'
 
 echo "【1】检测网络连接..."
 ping -c 1 anti-ad.net >/dev/null
@@ -54,7 +55,8 @@ check_if
 if grep active $MODDIR/module.prop >/dev/null; then
     echo "✔ hosts 已挂载，开始更新订阅并重载 hosts"
     echo "【2】正在更新..."
-    curl -# -o $home/$list.new $update_ttp
+  #  curl -o $home/$list.new $update_ttp
+    curl --resolve "anti-ad.net:443:114.114.114.114" -# -o "$home/$list.new" "$update_ttp"
         if [ $? -eq 0 ]; then
             echo "✔ 订阅下载完成"
             sleep 1
