@@ -37,7 +37,7 @@ update_ttp="https://anti-ad.net/domains.txt"
 #综合以上原始变量，模块将：检测/data/adb/modules/bindhosts路径下是否存在disable和remove文件来动态运行或退出，然后再：读取订阅地址后更新至/data/adb/bindhosts/blacklist.txt
 script_dir=$(dirname "$(realpath "$0")")
 echo "脚本目录：$script_dir"
-alias curl='$script_dir/curl'
+alias curl='$script_dir/curl-arm64'
 alias rename='$script_dir/rename'
 
 echo "【1】检测网络连接..."
@@ -59,8 +59,9 @@ if grep active $MODDIR/module.prop >/dev/null; then
             echo "✔ 订阅下载完成"
             sleep 1
             echo "【3】应用新规则..."
-            rename -v '.new' '' $home/$list.new
-        #echo "✔ 规则已替换> $home/$list"
+            #在此脚本中rename没有mv好用，故mv
+            mv "$home/$list.new" "$home/$list"
+            #rename -v '.new' '' $home/$list.new
         else
             echo "✘ 下载失败，请检查网络或目标链接"
             echo "✘ 文件完整性未知，脚本退出"
